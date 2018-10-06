@@ -14,6 +14,10 @@ public class PushButtonTest extends AppCompatActivity {
     }
     public void change_text(View view) {
         TextView hello = (TextView) findViewById(R.id.hello);
-            hello.setText("Bye World");
+        if (hello.getText() == "Hello World!") {
+            hello.setText("Bye World!");
+        } else {
+            hello.setText("Hello World!");
         }
+    }
 }
