@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ButtonTest</string>
     <string name="hello">Hello World!</string>
+    <string name="bye">Bye World!</string>
 </resources>
