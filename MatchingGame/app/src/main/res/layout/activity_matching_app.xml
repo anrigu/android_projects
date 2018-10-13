@@ -25,7 +25,7 @@
         android:padding="16dp">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/a"
             android:layout_width="161dp"
             android:layout_height="119dp"
             android:onClick="clickButton"
@@ -33,7 +33,7 @@
             tools:layout_editor_absoluteY="31dp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/b"
             android:layout_width="161dp"
             android:layout_height="119dp"
             android:onClick="clickButton"
@@ -51,7 +51,7 @@
         android:padding="16dp">
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/c"
             android:layout_width="161dp"
             android:layout_height="119dp"
             android:onClick="clickButton"
@@ -59,7 +59,7 @@
             tools:layout_editor_absoluteY="31dp" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/d"
             android:layout_width="161dp"
             android:layout_height="119dp"
             android:onClick="clickButton"

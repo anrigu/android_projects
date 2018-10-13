@@ -24,8 +24,8 @@ public class MatchingApp extends AppCompatActivity {
         @Override
         public void onFinish() {
             Log.i("timeout","Done");
-            ((Button)findViewById(R.id.button)).setText("Button");
-            ((Button)findViewById(R.id.button2)).setText("Button");
+            ((Button)findViewById(R.id.a)).setText("Button");
+            ((Button)findViewById(R.id.b)).setText("Button");
             listGenerate();
             timerStart = false;
         }
@@ -36,14 +36,19 @@ public class MatchingApp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         listGenerate();
         setContentView(R.layout.activity_matching_app);
-
-
+    }
+    public ArrayList<Integer> buttonId(){
+        ArrayList<Integer> buttonIdList = new ArrayList<Integer>();
+        buttonIdList.add(R.id.a);
+        buttonIdList.add(R.id.b);
+        buttonIdList.add(R.id.c);
+        buttonIdList.add(R.id.d);
+        return buttonIdList;
     }
     public void listGenerate(){
         cardList.clear();
         for(int i = 0; i < numberOfCards; i++) {
             cardList.add(Integer.toString(random(1,10)));
-
         }
     }
     public int random(int low, int high){
@@ -51,13 +56,13 @@ public class MatchingApp extends AppCompatActivity {
     }
     public void clickButton(View view) {
         showCard((Button) view);
-        Button buttonOne = findViewById(R.id.button);
-        Button buttonTwo = findViewById(R.id.button2);
+        Button buttonOne = findViewById(R.id.a);
+        Button buttonTwo = findViewById(R.id.b);
         checkButtons(buttonOne, buttonTwo);
     }
 
     public void showCard(Button button) {
-        if (button.getId() == R.id.button) {
+        if (button.getId() == R.id.a) {
             button.setText(cardList.get(0));
         } else {
             button.setText(cardList.get(1));
