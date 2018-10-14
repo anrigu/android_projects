@@ -6,27 +6,17 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MatchingApp extends AppCompatActivity {
     boolean timerStart = false;
     CardGame cardGame;
 
-    CountDownTimer timer = new CountDownTimer(5000, 1000) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-        }
 
-        @Override
-        public void onFinish() {
-            Log.i("timeout", "Done");
-            ((Button) findViewById(R.id.a)).setText("Button");
-            ((Button) findViewById(R.id.b)).setText("Button");
-            timerStart = false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +37,47 @@ public class MatchingApp extends AppCompatActivity {
     }
 
     public void clickButton(View view) {
-        if (cardGame.numberOfFaceUpCards() < 2) {
-            int cardIndex = cardGame.getMatchingCardIndex(view);
-            Card card = cardGame.cards.get(cardIndex);
-
+        int cardIndex = cardGame.getMatchingCardIndex(view);
+        Card card = cardGame.cards.get(cardIndex);
+        List<Card> currentFaceUpCards = cardGame.getFaceUpCards();
+        if (currentFaceUpCards.size() < 2) {
             if (!card.cardUp) {
                 card.flip(true);
                 ((Button) view).setText(Integer.toString(card.cardVal));
             }
         }
-    }
+        final List<Card> faceUpCards = cardGame.getFaceUpCards();
+        if (faceUpCards.size() == 2) {
+            CountDownTimer timer = new CountDownTimer(500, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
 
-    public void moveToSecond(View view) {
+                @Override
+                public void onFinish() {
+                    if (faceUpCards.get(0).cardVal == faceUpCards.get(1).cardVal) {
+                        removeCard(faceUpCards.get(0));
+                        removeCard(faceUpCards.get(1));
+                    } else {
+                        for (int i = 0; i < 2; i++) {
+                            Card c = faceUpCards.get(i);
+                            ((Button) findViewById(c.buttonId)).setText("Button");
+                            c.flip(false);
+                        }
+
+                    }
+                }
+            };
+        timer.start();
+        }
+    }
+        public void moveToSecond(View view) {
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
+    }
+    public void removeCard(Card card){
+        cardGame.cards.remove(card);
+        View view = findViewById(card.buttonId);
+        ((ViewGroup) view.getParent()).removeView(view);
     }
 }
