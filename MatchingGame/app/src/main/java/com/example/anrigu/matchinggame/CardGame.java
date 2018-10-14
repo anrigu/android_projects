@@ -10,14 +10,12 @@ public class CardGame {
 
     public CardGame(List<Integer> buttons) {
         cards = new ArrayList<>();
+        RandomNumberListGenerator generator = new RandomNumberListGenerator();
+        List<Integer> cardNumbers = generator.scrambleNumberList(buttons.size());
         for (int i = 0; i< buttons.size(); i++) {
-            cards.add(new Card(random(1,5),false,buttons.get(i)));
+            cards.add(new Card(cardNumbers.get(i),false, buttons.get(i)));
         }
     }
-    public int random(int low, int high){
-        return (int) (Math.random() * (((high-low)+1))+low);
-    }
-
     public Card onClick(Card card){
         if(!card.cardUp){
             card.flip(true);

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,7 +14,6 @@ import java.util.List;
 public class MatchingApp extends AppCompatActivity {
     boolean timerStart = false;
     CardGame cardGame;
-
 
 
     @Override
@@ -47,7 +45,7 @@ public class MatchingApp extends AppCompatActivity {
             }
         }
         final List<Card> faceUpCards = cardGame.getFaceUpCards();
-        if (faceUpCards.size() == 2) {
+        if (faceUpCards.size() == 2 && !timerStart) {
             CountDownTimer timer = new CountDownTimer(500, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -64,18 +62,21 @@ public class MatchingApp extends AppCompatActivity {
                             ((Button) findViewById(c.buttonId)).setText("Button");
                             c.flip(false);
                         }
-
                     }
+                    timerStart = false;
                 }
             };
-        timer.start();
+            timer.start();
+            timerStart = true;
         }
     }
-        public void moveToSecond(View view) {
+
+    public void moveToSecond(View view) {
         Intent intent = new Intent(this, HomePage.class);
         startActivity(intent);
     }
-    public void removeCard(Card card){
+
+    public void removeCard(Card card) {
         cardGame.cards.remove(card);
         View view = findViewById(card.buttonId);
         ((ViewGroup) view.getParent()).removeView(view);
