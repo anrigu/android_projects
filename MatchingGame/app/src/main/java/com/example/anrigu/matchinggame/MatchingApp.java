@@ -27,7 +27,6 @@ public class MatchingApp extends AppCompatActivity {
             Log.i("timeout", "Done");
             ((Button) findViewById(R.id.a)).setText("Button");
             ((Button) findViewById(R.id.b)).setText("Button");
-            listGenerate();
             timerStart = false;
         }
     };
@@ -35,7 +34,6 @@ public class MatchingApp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        listGenerate();
         setContentView(R.layout.activity_matching_app);
         cardGame = new CardGame(buttonIds());
     }
@@ -49,13 +47,6 @@ public class MatchingApp extends AppCompatActivity {
         buttonIdList.add(R.id.e);
         buttonIdList.add(R.id.f);
         return buttonIdList;
-    }
-
-    public void listGenerate() {
-        cardList.clear();
-        for (int i = 0; i < numberOfCards; i++) {
-            cardList.add(Integer.toString(random(1, 10)));
-        }
     }
 
     public int random(int low, int high) {
