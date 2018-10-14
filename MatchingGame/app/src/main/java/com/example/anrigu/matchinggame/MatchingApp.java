@@ -1,19 +1,16 @@
 package com.example.anrigu.matchinggame;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MatchingApp extends AppCompatActivity {
-    List<String> cardList = new ArrayList<>();
-    int numberOfCards = 2;
     boolean timerStart = false;
     CardGame cardGame;
 
@@ -49,16 +46,12 @@ public class MatchingApp extends AppCompatActivity {
         return buttonIdList;
     }
 
-    public int random(int low, int high) {
-        return (int) (Math.random() * (((high - low) + 1)) + low);
-    }
-
     public void clickButton(View view) {
         if (cardGame.numberOfFaceUpCards() < 2) {
             int cardIndex = cardGame.getMatchingCardIndex(view);
             Card card = cardGame.cards.get(cardIndex);
 
-            if (card.cardUp == false) {
+            if (!card.cardUp) {
                 card.flip(true);
                 ((Button) view).setText(Integer.toString(card.cardVal));
             }

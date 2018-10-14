@@ -1,7 +1,5 @@
 package com.example.anrigu.matchinggame;
 
-import android.support.annotation.StringRes;
-
 public class Card {
     boolean cardUp;
     int cardVal;
@@ -16,7 +14,4 @@ public class Card {
     public void flip(boolean up) {
         this.cardUp = up;
     }
-
-
-
 }

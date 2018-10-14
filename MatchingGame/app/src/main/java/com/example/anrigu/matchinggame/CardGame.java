@@ -18,7 +18,7 @@ public class CardGame {
         return (int) (Math.random() * (((high-low)+1))+low);
     }
     public Card onClick(Card card){
-        if(card.cardUp == false){
+        if(!card.cardUp){
             card.flip(true);
         }
         return card;
