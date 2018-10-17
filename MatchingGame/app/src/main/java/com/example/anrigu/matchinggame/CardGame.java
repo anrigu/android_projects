@@ -6,7 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardGame {
-    public List<Card> cards;
+    private List<Card> cards;
+
+    public Card getCardAt(int index) {
+        return cards.get(index);
+    }
+
+    public int getNumOfCards() {
+        return cards.size();
+    }
+
+    public void removeCard(Card c) {
+        cards.remove(c);
+    }
 
     public CardGame(List<Integer> buttons) {
         cards = new ArrayList<>();
@@ -32,24 +44,6 @@ public class CardGame {
         return -1;
     }
 
-    public int numberOfFaceUpCards(){
-        int count = 0;
-        for(int i = 0; i < cards.size(); i++){
-            if (cards.get(i).cardUp){
-                count ++;
-            }
-        }
-        return count;
-    }
-    public List<Integer> areTwoCardsEqual(Card card){
-        ArrayList<Integer> indexOfCardsEqual = new ArrayList<>();
-        for(int i = 0; i < cards.size();i++){
-            if ((card.cardVal == cards.get(i).cardVal) && (card.buttonId != cards.get(i).buttonId) && (cards.get(i).cardUp)){
-                indexOfCardsEqual.add(i);
-            }
-        }
-        return indexOfCardsEqual;
-    }
     public List<Card> getFaceUpCards (){
         List<Card> faceUpCards= new ArrayList<>();
         for(int i = 0; i < cards.size(); i++){

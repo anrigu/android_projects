@@ -10,8 +10,15 @@ public class Card {
         this.cardUp = cardUp;
         this.buttonId = buttonId;
     }
+    public Card(int cardVal,int buttonId){
+        this(cardVal,false,buttonId);
+    }
 
     public void flip(boolean up) {
         this.cardUp = up;
+    }
+    public static void main(String[] args){
+        Card jerry = new Card(5,true,1);
+        System.out.println(jerry.cardVal);
     }
 }
