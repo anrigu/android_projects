@@ -1,5 +1,6 @@
 package com.example.anrigu.matchinggame;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,31 +9,24 @@ public class RandomNumberListGenerator {
         return (int) (Math.random() * (((high - low) + 1)) + low);
     }
 
-    public List<Integer> generateNumberList(int numberOfCards) {
-        List<Integer> listNumbers = new ArrayList<>();
-        for (int i = 1; i <= numberOfCards; i++) {
-            int nextNum = i;
-            listNumbers.add(nextNum);
-            listNumbers.add(nextNum);
+    public List<Integer> generateListImage(List<Integer> listImageIds){
+        List<Integer> randomImageList = new ArrayList<>();
+        List<Integer> fullLenImageList = new ArrayList<>();
+        for(int i = 0; i < listImageIds.size(); i++){
+            fullLenImageList.add(listImageIds.get(i));
+            fullLenImageList.add(listImageIds.get(i));
         }
-        return listNumbers;
-    }
-
-    public List<Integer> scrambleNumberList(int listLength) {
-        List<Integer> listNums = new ArrayList<>(generateNumberList(listLength / 2));
-        List<Integer> scrambledList = new ArrayList<>();
-        while (listNums.size() > 0){
-            int randomIndex = random(0, listNums.size() - 1);
-            scrambledList.add(listNums.get(randomIndex));
-            listNums.remove(randomIndex);
+        while(fullLenImageList.size() > 0){
+            int idRandom = random(0,fullLenImageList.size()-1);
+            randomImageList.add(fullLenImageList.get(idRandom));
+            fullLenImageList.remove(idRandom);
         }
-        return scrambledList;
+        return randomImageList;
     }
 
     public static void main(String[] args) {
         RandomNumberListGenerator generator = new RandomNumberListGenerator();
-        System.out.println(generator.scrambleNumberList(6));
-        System.out.println(generator.scrambleNumberList(6));
-        System.out.println(generator.scrambleNumberList(6));
+        MatchingApp matchingApp = new MatchingApp();
+        System.out.println(generator.generateListImage(matchingApp.imageIds()));
     }
 }

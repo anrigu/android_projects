@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,21 +15,28 @@ public class MatchingApp extends AppCompatActivity {
     private boolean timerStart = false;
     private CardGame cardGame;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matching_app);
-        cardGame = new CardGame(buttonIds());
-        for(int i =0 ; i < cardGame.getNumOfCards(); i++) {
+        RandomNumberListGenerator x = new RandomNumberListGenerator();
+        cardGame = new CardGame(buttonIds(),x.generateListImage(imageIds()));
+        for(int i = 0 ; i < cardGame.getNumOfCards(); i++) {
             setCardDisplayState(cardGame.getCardAt(i));
         }
     }
-
+    public List<Integer> imageIds() {
+        ArrayList<Integer> Ids = new ArrayList<>();
+        Ids.add(R.drawable.jack_card);
+        Ids.add(R.drawable.queen_card);
+        Ids.add(R.drawable.king_card);
+        Ids.add(R.drawable.ace_card);
+        return Ids;
+    }
     public ArrayList<Integer> buttonIds() {
         ViewGroup grid = (ViewGroup) findViewById(R.id.container);
         int count = grid.getChildCount();
-        ArrayList<Integer> buttonIdList = new ArrayList<Integer>();
+        ArrayList<Integer> buttonIdList = new ArrayList<>();
         for(int i = 0; i<count;i++){
             buttonIdList.add(grid.getChildAt(i).getId());
         }
@@ -38,17 +44,17 @@ public class MatchingApp extends AppCompatActivity {
     }
 
     private void setCardDisplayState(Card card){
-        String text = card.cardUp ? Integer.toString(card.cardVal) : "";
-        int color = card.cardUp ? Color.CYAN : Color.LTGRAY;
-
         Button button = findViewById(card.buttonId);
-        button.setText(text);
-        button.setBackgroundColor(color);
+        if(card.cardUp){
+            button.setBackground(getDrawable(card.imageId));
+        }
+        else{
+            button.setBackgroundColor(Color.LTGRAY);
+        }
     }
 
     public void clickButton(View view) {
-        int cardIndex = cardGame.getMatchingCardIndex(view);
-        Card card = cardGame.getCardAt(cardIndex);
+        Card card = cardGame.getCardAt(view);
         List<Card> currentFaceUpCards = cardGame.getFaceUpCards();
         if (currentFaceUpCards.size() < 2) {
             if (!card.cardUp) {
@@ -91,6 +97,5 @@ public class MatchingApp extends AppCompatActivity {
         cardGame.removeCard(card);
         View view = findViewById(card.buttonId);
         view.setVisibility(View.INVISIBLE);
-
     }
 }
