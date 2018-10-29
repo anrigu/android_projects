@@ -10,15 +10,17 @@ public class CardGame {
 
     public Card getCardAt(View view) {
         for (int i = 0; i < cards.size(); i++) {
-            if (view.getId() == (cards.get(i).buttonId)) {
+            if (view.getId() == (cards.get(i).getButtonId())) {
                 return cards.get(i);
             }
         }
         return null;
     }
+
     public Card getCardAt(int index) {
         return cards.get(index);
     }
+
     public int getNumOfCards() {
         return cards.size();
     }
@@ -27,25 +29,24 @@ public class CardGame {
         cards.remove(c);
     }
 
-    public  CardGame(List<Integer> buttons,List<Integer> images) {
+    public CardGame(List<View> buttons, List<Integer> images) {
         cards = new ArrayList<>();
-        RandomNumberListGenerator generator = new RandomNumberListGenerator();
-        List<Integer> cardNumbers = generator.generateListImage(images);
-        for (int i = 0; i< buttons.size(); i++) {
-            cards.add(new Card(cardNumbers.get(i),false, buttons.get(i),images.get(i)));
+        for (int i = 0; i < buttons.size(); i++) {
+            cards.add(new Card(images.get(i), false, buttons.get(i).getId()));
         }
     }
-    public Card onClick(Card card){
-        if(!card.cardUp){
+
+    public Card onClick(Card card) {
+        if (!card.isCardUp()) {
             card.flip(true);
         }
         return card;
     }
 
-    public List<Card> getFaceUpCards(){
-        List<Card> faceUpCards= new ArrayList<>();
-        for(int i = 0; i < cards.size(); i++){
-            if (cards.get(i).cardUp){
+    public List<Card> getFaceUpCards() {
+        List<Card> faceUpCards = new ArrayList<>();
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).isCardUp()) {
                 faceUpCards.add(cards.get(i));
             }
         }
